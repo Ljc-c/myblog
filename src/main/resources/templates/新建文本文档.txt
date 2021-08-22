@@ -1,0 +1,149 @@
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+
+
+var 
+
+
+
+
+
+
+
+<script th:inline="javascript">
+			$('.menu.toggle').click(function(){
+				$('.m-item').toggleClass('m-mobile-hide');
+			});
+		</script>
+
+
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+			<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+		<!--/*/</th:block>/*/-->
+
+
+
+
+
+
+https://github.com/PrismJS/prism
+
+
+<!--/*/<th:block th:replace="_fragments ::script">/*/-->
+
+<!--/*/<th:block>/*/-->
+
+/*
+    tocbot.init({
+        //where to render the table of contents
+        tocSelector : '.js-toc',
+        //where to grab the headinds t build the table of contents
+        contentSelector : '.js-toc-content',
+        //which headinds to grab inside of the contentSelector elment
+        headingsSelector : 'h1,h2,h3',
+    });
+
+    $('.toc.button').popup({
+        popup: $('.toc-container.popup'),
+        on : 'click',
+        position: 'left center'
+    });
+    */
+
+    // $('wechat').popup({
+    //     popup : $('.wechat-qr'),
+    //     position : 'left center'
+    // });
+    // var serurl = "127.0.0.1:8080";
+    // var url = /*[[@{/blog/{id}(id=${blog.id})]]*/"";
+    // var qrcode new QRCode("qrcode",{
+    //     text : serurl+url,
+    //     width : 110,
+    //     height : 110,
+    //     colorDepth : "#000000",
+    //     colorLight : "#ffffff",
+    //     correctLevel : QRCode.CorrectLevel.H
+    // });
+
+   /*
+    $('#toTop-button').click(function () {
+
+        $(window).scrollTo(0,500);
+    });
+
+    var waypoint = new Waypoint({
+        element : document.getElementById('waypoint'),
+        handler : function (direction) {
+            if(direction  =='down'){
+                $('#toolbat').show(100);
+            }else {
+                $('#toolbar').hide(500);
+            }
+            console.log('Scroller to waypoint'+direction);
+
+        }
+    });
+*/
+
+
+
+
+
+
+        <!--/*-->
+						<div class="comment">
+                            <a class="avatar">
+                                <img src="../../static/images/001.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author">Elliot Fu</a>
+                                <div class="metadata">
+                                    <span class="date">Yesterday at 12:30AM</span>
+                                </div>
+                                <div class="text">
+                                    <p>This has been very useful for my research. Thanks as well!</p>
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">»Ø¸´</a>
+                                </div>
+                            </div>
+                            <div class="comments">
+                                <div class="comment">
+                                    <a class="avatar">
+                                        <img src="../../static/images/003.jpg">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">Jenny Hess</a>
+                                        <div class="metadata">
+                                            <span class="date">Just now</span>
+                                        </div>
+                                        <div class="text">
+                                            Elliot you are always so right :)
+                                        </div>
+                                        <div class="actions">
+                                            <a class="reply">»Ø¸´</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+						<div class="comment">
+                            <a class="avatar">
+                                <img src="../../static/images/001.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author">Joe Henderson</a>
+                                <div class="metadata">
+                                    <span class="date">5 days ago</span>
+                                </div>
+                                <div class="text">
+                                    Dude, this is awesome. Thanks so much
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">»Ø¸´</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--*/-->

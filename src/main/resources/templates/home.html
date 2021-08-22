@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--<head th:replace="_fragments :: head(~{::title})">-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/me.css}">
+    <!--    <link rel="stylesheet" href="./static/css/me.css">-->
+</head>
+<body>
+<!--导航-->
+<!--<nav th:replace="_fragments" class="ui inverted attached segment m-padded-tb-mini">-->
+    <nav class="ui inverted attached segment m-padded-tb-mini">
+    <div class="ui container">
+        <div class="ui inverted  secondary stackable menu">
+            <h2 class="ui orange header item">Blog</h2>
+            <a href="#" class=" m-item item m-mobile-hide"><i class="mini home icon"></i>首页</a>
+            <a th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
+            <a th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
+            <a th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a th:href="@{/about}" class="m-item item m-mobile-hide"><i class="mini info icon"></i>相关</a>
+            <div class="right m-item item m-mobile-hide">  <!--向右靠-->
+                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                    <div class="ui icon input">
+                        <input type="text" name="query" placeholder="Search..." th:value="${query}">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
+            <div class="right m-item item m-mobile-hide">
+                <a href="#">登录</a>
+            </div>
+
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"> </i>
+    </a>
+
+</nav>
+
+<style type="text/css">
+    /**{margin: 0;padding: 0}*/
+    #myimg{width: 50px;height: 50px;}
+</style>
+<!--中间内容-->
+<div class="m-container m-padded-tb-large m-padded-lr">
+    <div class="ui container">
+        <div class="ui stackable grid"><!--布局-->
+            <!--左边导航、标签-->
+
+            <div class="attached four wide column">  <!--左右分割-->
+                <!--分类模块-->
+
+                <div class="ui segments">
+                <div class="ui padded vertical secondary segment">  <!--灰色下拉栏-->
+                    <div class="ui two column grid">
+                        <div class="column">
+                            <img class="ui avatar image" src="https://unsplash.it/100/100?image=1005" alt="" id="myimg">
+                        </div>
+
+                        <div class="middle aligned column m-text-big" th:text="${session.guest} !=null ? ${session.guest.username}">
+                            名称
+                        </div>
+                    </div>
+                </div>
+                <div class="ui  segment">
+                    <div class="ui grid" th:text="${session.guest.id}">5555</div>
+                </div>
+                </div>
+                <div><a th:href="@{/home-input/{id}(id=${session.guest.id})}" href="#">修改</a></div>
+            </div>
+
+
+
+        <!--右边主体-->
+        <div class="twelve wide column">
+            <div class="ui top attached segment">
+                <!--左边导航、标签-->
+                <!--/*@thymesVar id="username" type="com.blog.entity.Guest"*/-->
+                <h3>个人评论管理</h3>
+<!--                <h3 class="ui teal header" th:text="${session.guest} !=null ? ${session.guest.username}">标签</h3>-->
+            </div>
+            <div class="ui attached segment">详细信息并修改
+                <div id="comment-container" class="ui blue segment">
+                    <div th:fragment="guest-comments">
+                        <div class="ui threaded comments">
+                            <h3 class="ui dividing header" style="width: 100%;">评论</h3>
+                            <!--/*@thymesVar id="comments" type="com.blog.entity.Comment"*/-->
+                            <div class="comment" th:each="comment : ${guestComments}">
+                                <a class="avatar">
+                                    <img src="../static/images/002.jpg" th:src="@{/images/001.jpg}">  <!--  th:src="@{${comment.avatar}}" -->
+                                </a>
+                                <div class="content">
+                                    <a class="author">
+                                        <!--/*@thymesVar id="comment" type="com.blog.entity.Comment"*/-->
+                                        <span th:text="${comment.nickname}">Matt</span>
+                                        <div class="ui mini basic pink left pointing label m-padded-tb-mini" th:if="${comment.adminComment}">博主</div>
+                                    </a>
+
+                                    <div class="metadata">
+                                        <!--/*@thymesVar id="comment" type="com.blog.entity.Comment"*/-->
+                                        <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd hh:mm')}">Today at 5:42PM</span>
+                                    </div>
+                                    <!--/*@thymesVar id="content" type="com.blog.entity.Comment"*/-->
+                                    <div class="text" th:text="${comment.content}">
+                                        How artistic!
+                                    </div>
+                                    <div class="actions">
+                                        <a class="reply" data-commentid="1" data-commentnickname="Orange" th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}" onclick="reply(this)">回复</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            <div class="ui attached padded segment">比较</div>-->
+            <div class="ui bottom attached segment">
+                <span th:each="comment:${guestComments}" th:text="${comment}">评论内容</span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<br>
+    <br>
+
+<!--底部-->
+<!--<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">-->
+<footer class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+        <div class="ui stackable inverted divided grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img th:src="@{/images/hh.jpg}" class="ui rounded image" alt="" style="width:110px"/>
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <div class="ui inverted link list"><!--创建列表-->
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <div class="ui inverted link list"><!--创建列表-->
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">博客</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider">
+            <p class="m-text-thin m-text-spaced m-opacity-tiny" style="text-transform: none">Copyright @ 2021</p>
+        </div>
+    </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script th:inline="javascript">
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+
+    //footer推荐
+    $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+    $(function() {
+        console.log($.session);
+        console.log($.isEmptyObject($.session.guest));
+    });
+</script>
+</body>
+</html>

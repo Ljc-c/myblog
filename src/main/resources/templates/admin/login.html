@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>博客管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
+        <link rel="stylesheet" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <link rel='stylesheet' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
+
+<!--    <link rel="stylesheet" href="../../static/css/astyle.css">-->
+    <link rel="stylesheet" th:href="@{/css/astyle.css}">
+</head>
+<body>
+
+
+<div class="m-black wrapper">
+    <form class="inverted form-signin" method="post" th:action="@{/admin/login}">
+        <h2 class="form-signin-heading fa-align-center">博客管理登录</h2>
+        <input type="text" class="form-control" name="username" placeholder="Name" required="" autofocus="" />
+        <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
+        <label class="checkbox">
+            <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe" class="m-opacity-tiny"> 记住我
+        </label>
+        <input type="text" id="code" placeholder="验证码" style="width: 170px" class="">
+        <img id="verifying" onclick="javascript : getvCode()" style="margin-left: 25px;"/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登   录</button>
+<!--        加入我们？<a href="#" th:href="@{/register}" class="ui message m-opacity-tiny">注   2 册</a>-->
+    <div class="error mini message"></div>
+        加入我们？<a href="#" th:href="@{/register}" class="ui right aligned m-opacity-tiny">注  册</a>
+        <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名或密码错误</div>
+    </form>
+
+</div>
+
+
+
+<!--<div class="m-container " style="max-width: 30em !important;">-->
+<!--<div class="ui container">-->
+<!--<div class="ui middle aligned center aligned grid">-->
+<!--    <div class="column">-->
+<!--        <h2 class="ui teal image header">-->
+<!--            <img src="assets/images/logo.png" class="image">-->
+<!--            <div class="content">博客管理登录</div>-->
+<!--        </h2>-->
+<!--        <form class="ui large form">-->
+<!--            <div class="ui segment  m-padded-tb-massive">-->
+<!--                <div class="field">-->
+<!--                    <div class="ui left icon input">-->
+<!--                        <i class="user icon"></i><input type="text" name="email" placeholder="用户名">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="field">-->
+<!--                    <div class="ui left icon input">-->
+<!--                        <i class="lock icon"></i><input type="password" name="password" placeholder="密码">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <label class="checkbox">-->
+<!--                    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe" class="m-opacity-tiny"> 记住我-->
+<!--                </label>-->
+<!--&lt;!&ndash;                <button class="ui fluid btn btn-lg btn-primary btn-block" type="submit">登   录</button>&ndash;&gt;-->
+<!--                <div class="ui fluid large teal submit button">Login</div>-->
+<!--            </div>-->
+
+<!--            <div class="ui error message"></div>-->
+
+<!--        </form>-->
+
+<!--        <div class="ui message m-opacity-tiny">-->
+<!--            加入我们？<a href="#">注    册</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="../../static/lib/editormd/editormd.min.js"></script>
+<script type="text/javascript">
+    getvCode();
+    function getvCode(){
+        document.getElementById("verifying").src= timestamp("http://localhost:8080/verifyCode");
+    };
+    function timestamp(url){
+        var getTimestamp = new Date().getTime();
+        if (url.indexOf("?") > -1){
+            url = url +"&timestamp=" +getTimestamp
+        }else {
+            url = url + "?timestamp" +getTimestamp
+        }
+        return url;
+    };
+
+    $('ui.form').form({
+        fields : {
+            username : {
+                identifier : 'username',
+                rules : [{
+                    type :'empty',
+                    prompt : '请输入用户名'
+                }]
+            },
+            password : {
+                identifier : 'password',
+                rules : [{
+                    type :'empty',
+                    prompt : '请输入密码'
+                }]
+            }
+        }
+    });
+
+    function aVerify(){
+        var value =$("#code").val();
+        // alert(value);
+        $.ajax({
+            async: false,
+            type: 'post',
+            url: '/checkVerify',
+            dataType: "json",
+            data: {
+                verifyInput: value
+            },
+            success: function (result) {
+                if (result) {
+                    alert("success!");
+                } else {
+                    alert("failed!");
+                }
+                // window.location.reload();
+                getvCode();
+            }
+        });
+    }
+</script>
+</body>
+</html>

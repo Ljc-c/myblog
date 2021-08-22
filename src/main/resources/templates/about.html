@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<head>-->
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>关于我</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../static/css/me.css">
+</head>
+<body>
+<!--导航-->
+<!--<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small">-->
+<nav th:replace="_fragments :: menu(5)" class="ui inverted attached segment m-padded-tb-mini">
+    <div class="ui container">
+        <div class="ui inverted  secondary stackable menu">
+            <h2 class="ui orange header item">Blog</h2>
+            <a th:href="@{/index}" class="m-item item m-mobile-hide"><i class="mini home icon"></i>首页</a>
+            <a th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
+            <a th:href="@{/tags/-1}" class="active m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
+            <a th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a th:href="@{/about}" class="m-item item m-mobile-hide"><i class="mini info icon"></i>相关</a>
+            <div class="right m-item item m-mobile-hide">  <!--向右靠-->
+                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                    <div class="ui icon input">
+                        <input type="text" name="query" placeholder="Search..." >
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
+            <div class="right m-item item m-mobile-hide">
+                <a href="#">登录</a>
+            </div>
+
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"> </i>
+    </a>
+
+</nav>
+
+<!--中间内容-->
+<div class="m-container m-padded-tb-big">
+    <div class="ui container">
+        <div class="ui stackable grid">
+            <!--左右布局：左11-->
+            <div class="eleven wide column">
+                <div class="ui segment">
+                <img src="https://unsplash.it/800/450?image=1005" alt="" class="ui rounded image">
+                </div>
+            </div>
+            <!--左右布局：右五-->
+            <div class="five wide column ">
+                <div class="ui top attached segment">
+                    <div class="ui header">关于我</div>
+                </div>
+                <div class="ui attached segment">
+                    <p class="m-text">自我介绍</p>
+                    <p>爱好</p>
+                </div>
+                <!--个人标签-->
+                <div class="ui attached segment">
+                    <div class="ui orange basic label m-margin-top-small m-margin-lr">编程</div>
+                    <div class="ui orange basic label m-margin-top-small m-margin-lr">编程</div>
+                    <div class="ui orange basic label m-margin-top-small m-margin-lr">编程</div>
+                    <div class="ui orange basic label m-margin-top-small">编程</div>
+                </div>
+                <!--联系方法-->
+                <div class="ui attached segment">
+                    <a href="#" class="ui circular icon button"><i class="github icon"></i></a>
+                    <a href="#" class="ui weixin circular icon button"><i class="weixin icon"></i></a>
+                    <a href="#" class="ui qq circular icon button" data-content="qq号" data-position="bottom center"><i class="qq icon"></i></a>
+                </div>
+
+                <div class="ui weixin-qr flowing popup transition hidden">
+                    <img src="../static/images/002.jpg" alt="" class="ui rounded bordered image" style="width: 120px">
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+				
+	</div>
+</div>
+
+<br>
+
+
+
+
+
+<!--底部-->
+<!--<footer class="ui inverted vertical segment m-padded-tb-massive">-->
+<footer th:replace="_fragments ::footer" class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+        <div class="ui stackable inverted divided grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img th:src="@{/static/images/hh.jpg}" class="ui rounded image" alt="" style="width:110px"/>
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <div class="ui inverted link list"><!--创建列表-->
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <div class="ui inverted link list"><!--创建列表-->
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                    <a href="#" class="item">用户故事</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header">最新博客</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">博客</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider">
+            <p class="m-text-thin m-text-spaced m-opacity-tiny" style="text-transform: none">Copyright @ 2021</p>
+        </div>
+    </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.weixin').popup({
+        popup : $('.weixin-qr'),
+        on : 'hover',
+        position : 'bottom center'
+    });
+    $('.qq').popup();
+
+    //footer推荐
+    $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+</script>
+</body>
+</html>

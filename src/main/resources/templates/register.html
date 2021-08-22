@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+    <link rel='stylesheet' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
+
+    <link rel="stylesheet" th:href="@{/css/me.css}">
+    <link rel="stylesheet" th:href="@{/css/astyle.css}">
+</head>
+<body>
+
+<style type="text/css">
+    /**{margin: 0;padding: 0}*/
+    #register-form{width: 340px;height: 340px;}
+</style>
+<!--中间内容-->
+<div class="m-container m-padded-tb-large">
+    <div class="ui m-container">
+        <h3 style="color: #1a65e3" align="center">用户注册</h3>
+        <form id="register-form" th:action="@{/gregister}" method="post" class="ui form" style="align-content: center">
+
+            <div class="required field">
+                <label>用户昵称</label>
+                <input type="text" name="username" placeholder="请输入用户名" id="username" onblur="checkName()"><span id="sname"></span>
+            </div>
+            <div class="required field">
+                <label>电子邮箱</label>
+                <input type="email" name="email" placeholder="请输入邮箱">
+            </div>
+            <div class="required field">
+                <label>密码</label>
+                <input type="password" name="password" placeholder="请输入密码">
+            </div>
+            <div class="required field">
+                <label>确认密码</label>
+                <input type="password" name="repassword" placeholder="请再次输入密码">
+            </div>
+            <button class="ui button primary" type="submit">提交</button>
+            <!--用于放置错误信息-->
+            <div class="ui error message"></div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script type="text/javascript">
+    $('ui.form').form({
+        fields : {
+            username : {
+                identifier : 'username',
+                rules : [{
+                    type :'empty',
+                    prompt : '请输入用户名'
+                }]
+            },
+            password : {
+                identifier : 'password',
+                rules : [{
+                    type :'empty',
+                    prompt : '请输入密码'
+                }]
+            },
+            email : {
+                identifier : 'email',
+                rules : [{
+                    type :'empty',
+                    prompt : '请输入邮箱'
+                }]
+            },
+            repassword : {
+                identifier : 'repassword',
+                rules : [{
+                    type :'empty',
+                    prompt : '请再次输入密码'
+                }]
+            }
+        }
+    });
+
+    function checkName() {
+        var username = $("#username").val();
+        var span = $("#sname");
+        if(username==null||username==""){
+            return true;
+        }else {
+            $.post("/checkGuestName",{"username":username},function(result){
+                alert(result);
+                console.log(result);
+                if(result=="true"){
+                    //span.css("color","green").html("好");
+                    return true;
+                }else{
+                    span.css("color","red").html("用户名已存在");
+                    return false;
+                }
+            });
+        }
+
+    };
+</script>
+</body>
+</html>
